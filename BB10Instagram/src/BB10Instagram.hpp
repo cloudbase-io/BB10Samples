@@ -34,9 +34,9 @@
 namespace bb { namespace cascades { class Application; }}
 
 /*!
- * @brief Application pane object
+ * @brief BlackBerry 10 Instagram demo
  *
- *Use this object to create and init app UI, to create context objects, to register the new meta types etc.
+ * This object initializes the app UI and the cloudbase.io helper class to send and receive data
  */
 class BB10Instagram : public QObject, Cloudbase::CBHelperResponder
 {
@@ -45,27 +45,52 @@ public:
     BB10Instagram(bb::cascades::Application *app);
     virtual ~BB10Instagram() {};
 
+    /**
+     * Receives data from the cloudbase.io APIs. This method in the main object is only used
+     * to save the user in the settings tab
+     *
+     * @param resp The response object from cloudbase.io
+     */
     virtual void parseResponse(Cloudbase::CBHelperResponseInfo resp);
 
+    /**
+     * Called when the save button is pressed in the settings tab
+     */
     Q_INVOKABLE void saveSettings(QString newUsername);
+    /**
+     * Called once a picture is taken and is ready to be uploaded the with picture details
+     */
     Q_INVOKABLE void startPicture(QString title, QString tags);
 
 private:
+    // The user created by the settings tab when a username is sent to cloudbase.io
     User *userObject;
+    // A Photo object to store a new picture being taken while it's uploaded to cloudbase.io
     Photo *newPhoto;
 
+    // The global cloudbase.io helper class object
     Cloudbase::CBHelper *helper;
     bb::cascades::AbstractPane *root;
+    // Global photoloader object to receive data from cloudbase.io
     PhotoLoader *loader;
 
 public Q_SLOTS:
+	// SLOT for the Camera object
 	void photoSaved (const QString &fileName, quint64 length );
 
+	// These are used by the uploader object to communicate with the main app when
+	// photos are being uplaoded
 	void photoUploaded(Photo* photo);
 	void photoUploadFailed(Photo* photo, QString error);
 
+	// This SLOT is called by the PhotoLoader object every time it receives a new photo
+	// from cloudbase.io
 	void receivedPhoto(Photo* photo);
 
+	// These slots are called by the downloader every time a download completes or fails.
+	// the main UI is updated directly by the PhotoDownloader object using the VisualNode
+	// it receives in its constructor - These are used only as debug methods here to monitor
+	// the activity of the downloader.
 	void photoDownloaded(Photo* photo);
 	void photoDownloadFailed(Photo* photo, QString error);
 };

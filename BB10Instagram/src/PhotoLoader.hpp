@@ -21,19 +21,39 @@
 #ifndef PHOTOLOADER_HPP_
 #define PHOTOLOADER_HPP_
 
+/**
+ * Loads the contents of the photos collection on the cloudbase.io Cloud Database
+ * Once a picture is loaded into a Photo object the receivedPhoto SIGNAL is emitted
+ */
 class PhotoLoader : public QObject, Cloudbase::CBHelperResponder
 {
     Q_OBJECT
 public:
+    /**
+     * Creates a new PhotoLoader object
+     *
+     * @param initializedHelper An initialized CBHelper object
+     */
     PhotoLoader(Cloudbase::CBHelper *initializedHelper);
-    //~PhotoLoader();
 
+    /**
+     * Loads all of the photos available in the collection
+     */
     void loadPhotos();
+    /**
+     * Loads all of the photos for a specific user from the photos collection
+     *
+     * @param user The username to look for
+     */
     void loadPhotos(QString user);
 
+    /**
+     * Receives the data from the CBHelper object and creates Photo objects. Once a photo
+     * object is populated the receivedPhoto SIGNAL is emitted
+     */
     virtual void parseResponse(Cloudbase::CBHelperResponseInfo resp);
 private:
-    Cloudbase::CBHelper *helper;
+    Cloudbase::CBHelper *helper; // the initialized helper class
 
 signals:
 	void receivedPhoto(Photo* photo);
