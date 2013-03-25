@@ -11,3 +11,13 @@
 *.lai
 *.la
 *.a
+
+# emulators
+172*
+
+# mac files
+.DS_Store
+
+# eclipse metadata
+.metadata
+
