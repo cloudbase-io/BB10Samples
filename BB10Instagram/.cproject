@@ -29,7 +29,7 @@
 									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/bb/data"/>
 									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/qt4/QtCore"/>
 									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/bb/device"/>
-									<listOptionValue builtIn="false" value="${workspace_loc}/BB10Instagram/CBHelper/Simulator-Debug/headers"/>
+									<listOptionValue builtIn="false" value="${CWD}/CBHelper/Simulator-Debug/headers"/>
 								</option>
 								<inputType id="com.qnx.qcc.inputType.compiler.1921172270" superClass="com.qnx.qcc.inputType.compiler"/>
 							</tool>
@@ -46,7 +46,7 @@
 									<listOptionValue builtIn="false" value="bbdata"/>
 								</option>
 								<option id="com.qnx.qcc.option.linker.libraryPaths.1663179584" name="Library Paths (-L)" superClass="com.qnx.qcc.option.linker.libraryPaths" valueType="libPaths">
-									<listOptionValue builtIn="false" value="${workspace_loc}/BB10Instagram/CBHelper/Device-Debug"/>
+									<listOptionValue builtIn="false" value="${CWD}/CBHelper/Device-Debug"/>
 								</option>
 							</tool>
 							<tool id="com.qnx.qcc.tool.archiver.1482471713" name="QCC Archiver" superClass="com.qnx.qcc.tool.archiver"/>
@@ -85,7 +85,7 @@
 									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/bb/data"/>
 									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/qt4/QtCore"/>
 									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/bb/device"/>
-									<listOptionValue builtIn="false" value="${workspace_loc}/BB10Instagram/CBHelper/Simulator-Debug/headers"/>
+									<listOptionValue builtIn="false" value="${CWD}/CBHelper/Simulator-Debug/headers"/>
 								</option>
 								<inputType id="com.qnx.qcc.inputType.compiler.1903454871" superClass="com.qnx.qcc.inputType.compiler"/>
 							</tool>
@@ -102,7 +102,7 @@
 									<listOptionValue builtIn="false" value="bbdata"/>
 								</option>
 								<option id="com.qnx.qcc.option.linker.libraryPaths.118462890" name="Library Paths (-L)" superClass="com.qnx.qcc.option.linker.libraryPaths" valueType="libPaths">
-									<listOptionValue builtIn="false" value="${workspace_loc}/BB10Instagram/CBHelper/Device-Debug"/>
+									<listOptionValue builtIn="false" value="${CWD}/CBHelper/Device-Debug"/>
 								</option>
 							</tool>
 							<tool id="com.qnx.qcc.tool.archiver.2031925205" name="QCC Archiver" superClass="com.qnx.qcc.tool.archiver"/>
@@ -141,7 +141,7 @@
 									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/bb/data"/>
 									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/qt4/QtCore"/>
 									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/bb/device"/>
-									<listOptionValue builtIn="false" value="${workspace_loc}/BB10Instagram/CBHelper/Simulator-Debug/headers"/>
+									<listOptionValue builtIn="false" value="${CWD}/CBHelper/Simulator-Debug/headers"/>
 								</option>
 								<inputType id="com.qnx.qcc.inputType.compiler.1140643602" superClass="com.qnx.qcc.inputType.compiler"/>
 							</tool>
@@ -158,7 +158,7 @@
 									<listOptionValue builtIn="false" value="bbdata"/>
 								</option>
 								<option id="com.qnx.qcc.option.linker.libraryPaths.2131962630" name="Library Paths (-L)" superClass="com.qnx.qcc.option.linker.libraryPaths" valueType="libPaths">
-									<listOptionValue builtIn="false" value="${workspace_loc}/BB10Instagram/CBHelper/Device-Debug"/>
+									<listOptionValue builtIn="false" value="${CWD}/CBHelper/Device-Debug"/>
 								</option>
 							</tool>
 							<tool id="com.qnx.qcc.tool.archiver.1951995568" name="QCC Archiver" superClass="com.qnx.qcc.tool.archiver"/>
@@ -197,7 +197,7 @@
 									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/bb/data"/>
 									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/qt4/QtCore"/>
 									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/bb/device"/>
-									<listOptionValue builtIn="false" value="${workspace_loc}/BB10Instagram/CBHelper/Simulator-Debug/headers"/>
+									<listOptionValue builtIn="false" value="${CWD}/CBHelper/Simulator-Debug/headers"/>
 								</option>
 								<inputType id="com.qnx.qcc.inputType.compiler.1044175275" superClass="com.qnx.qcc.inputType.compiler"/>
 							</tool>
@@ -214,7 +214,7 @@
 									<listOptionValue builtIn="false" value="bbdata"/>
 								</option>
 								<option id="com.qnx.qcc.option.linker.libraryPaths.47848314" name="Library Paths (-L)" superClass="com.qnx.qcc.option.linker.libraryPaths" valueType="libPaths">
-									<listOptionValue builtIn="false" value="${workspace_loc}/BB10Instagram/CBHelper/Simulator-Debug"/>
+									<listOptionValue builtIn="false" value="${CWD}/CBHelper/Simulator-Debug"/>
 								</option>
 							</tool>
 							<tool id="com.qnx.qcc.tool.archiver.931659189" name="QCC Archiver" superClass="com.qnx.qcc.tool.archiver"/>
