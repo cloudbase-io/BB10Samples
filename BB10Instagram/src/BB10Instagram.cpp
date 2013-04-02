@@ -18,6 +18,9 @@
 
 #include <bb/cascades/Application>
 #include <bb/cascades/QmlDocument>
+#include <bb/system/CardDoneMessage>
+#include <bb/system/InvokeManager>
+#include <bb/system/InvokeTargetReply>
 
 using namespace bb::cascades;
 using namespace Cloudbase;
@@ -50,6 +53,12 @@ BB10Instagram::BB10Instagram(bb::cascades::Application *app)
 
     	// TODO: We should set the username in the textfield here
     }
+
+    // Create and send an invocation for the card target
+    invokeManager = new bb::system::InvokeManager();
+
+    connect(invokeManager, SIGNAL(childCardDone(const bb::system::CardDoneMessage&)),
+    		this, SLOT(childCardDone(const bb::system::CardDoneMessage&)));
 
     // initialize the CBHelper
     helper = new CBHelper("bb10-instagram", "c9c562fe54d2465db5e2cd16ed5d6156");
@@ -102,6 +111,20 @@ Q_INVOKABLE void BB10Instagram::startPicture(QString title, QString tags) {
 	// TODO: remove this once the Camera object is connected
 	newPhoto = new Photo(QString(title), QString(userObject->getUsername()), QString(tags), QString("asset:///images/test_photo.jpg"));
 	this->photoSaved("asset:///images/test_photo.jpg", 0);
+}
+
+Q_INVOKABLE void BB10Instagram::takePicture(){
+	bb::system::InvokeRequest cardRequest;
+	cardRequest.setTarget("sys.camera.card");
+	cardRequest.setAction("bb.action.CAPTURE");
+	bb::system::InvokeTargetReply* reply = invokeManager->invoke(cardRequest);
+	reply->setParent(this);
+}
+
+void BB10Instagram::childCardDone(const bb::system::CardDoneMessage &message)
+{
+	//Do something when the card closes
+    qDebug() << "Card closed" << message.data();
 }
 
 void BB10Instagram::photoSaved ( const QString &fileName, quint64 length ) {

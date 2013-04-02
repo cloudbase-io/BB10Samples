@@ -1,5 +1,6 @@
 // Tabbed Pane project template
 import bb.cascades 1.0
+import bb.data 1.0
 
 TabbedPane {
     showTabsOnActionBar: true
@@ -11,9 +12,33 @@ TabbedPane {
             Page {
                 ListView {
                     id: photosListView
-                    leadingVisual: photosListView
+                    dataModel: photoListModel
+                    listItemComponents: [
+                        ListItemComponent {
+                            type: "item"
+                            MyListItemComponent{
+                                //This is a custom component available in MyListItemComponent.qml
+                            }
 
+                        }
+                    ]
                 }
+                attachedObjects: [
+                    GroupDataModel {
+                        id: photoListModel
+                        sortingKeys: [ "photo_time" ]
+                        sortedAscending: true
+                    },
+                    DataSource {
+                        id: photoListData
+                        source: "photo.json"
+                        onDataLoaded: {
+                            photoListModel.clear();
+                            photoListModel.insertList(data);
+                        }
+                    }
+
+                ]
 
             }
 

@@ -2,7 +2,7 @@ APP_NAME = BB10Instagram
 
 CONFIG += qt warn_on cascades10
 
-LIBS += -lbbdevice -lbbnetwork -lbbsystem -lcurl -lQtLocationSubset -lCBHelper
+LIBS += -lbbdevice -lbbnetwork -lbbsystem -lcurl -lQtLocationSubset -lCBHelper -lbbdata
 
 include(config.pri)
 

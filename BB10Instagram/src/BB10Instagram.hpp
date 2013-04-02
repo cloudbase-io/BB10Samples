@@ -1,10 +1,3 @@
-// Tabbed pane project template
-#ifndef BB10Instagram_HPP_
-#define BB10Instagram_HPP_
-
-#include <QObject>
-
-#include <bb/cascades/AbstractPane>
 /* Copyright (C) 2012 cloudbase.io
 
  This program is free software; you can redistribute it and/or modify it under
@@ -21,7 +14,14 @@
  Software Foundation, 59 Temple Place - Suite 330, Boston, MA
  02111-1307, USA.
  */
+#ifndef BB10Instagram_HPP_
+#define BB10Instagram_HPP_
+
+#include <QObject>
+
+#include <bb/cascades/AbstractPane>
 #include <bb/cascades/ActivityIndicator>
+#include <bb/system/InvokeManager>
 
 #include "CBHelper.h"
 
@@ -62,6 +62,9 @@ public:
      */
     Q_INVOKABLE void startPicture(QString title, QString tags);
 
+    //Added by lsale
+    Q_INVOKABLE void takePicture();
+
 private:
     // The user created by the settings tab when a username is sent to cloudbase.io
     User *userObject;
@@ -74,9 +77,14 @@ private:
     // Global photoloader object to receive data from cloudbase.io
     PhotoLoader *loader;
 
-public Q_SLOTS:
+    bb::system::InvokeManager *invokeManager;
+
+public slots:
+
 	// SLOT for the Camera object
-	void photoSaved (const QString &fileName, quint64 length );
+	void photoSaved (const QString &fileName, quint64 length);
+
+	void childCardDone(const bb::system::CardDoneMessage &message);
 
 	// These are used by the uploader object to communicate with the main app when
 	// photos are being uplaoded

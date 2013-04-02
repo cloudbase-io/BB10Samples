@@ -4,22 +4,25 @@ BASEDIR =  $$quote($$_PRO_FILE_PWD_)
 device {
     CONFIG(debug, debug|release) {
         INCLUDEPATH +=  $$quote(${QNX_TARGET}/usr/include/bb/device) \
-                 $$quote(/Users/stef/bb10-tmp-workspace/BB10Instagram/CBHelper/Simulator-Debug/headers) \
+                 $$quote(${workspace_loc}/BB10Instagram/CBHelper/Simulator-Debug/headers) \
+                 $$quote(${QNX_TARGET}/usr/include/bb/data) \
                  $$quote(${QNX_TARGET}/usr/include/qt4/QtCore)
 
         DEPENDPATH +=  $$quote(${QNX_TARGET}/usr/include/bb/device) \
-                 $$quote(/Users/stef/bb10-tmp-workspace/BB10Instagram/CBHelper/Simulator-Debug/headers) \
+                 $$quote(${workspace_loc}/BB10Instagram/CBHelper/Simulator-Debug/headers) \
+                 $$quote(${QNX_TARGET}/usr/include/bb/data) \
                  $$quote(${QNX_TARGET}/usr/include/qt4/QtCore)
 
         LIBS += -lCBHelper \
                 -lQtCore \
                 -lcamapi \
                 -lbbdevice \
-                -lcurl
+                -lcurl \
+                -lbbdata
 
-        LIBS +=  $$quote(-L/Users/stef/bb10-tmp-workspace/BB10Instagram/CBHelper/Device-Debug)
+        LIBS +=  $$quote(-L${workspace_loc}/BB10Instagram/CBHelper/Device-Debug)
 
-        PRE_TARGETDEPS +=  $$quote(/Users/stef/bb10-tmp-workspace/BB10Instagram/CBHelper/Device-Debug)
+        PRE_TARGETDEPS +=  $$quote(${workspace_loc}/BB10Instagram/CBHelper/Device-Debug)
 
         SOURCES +=  $$quote($$BASEDIR/src/BB10Instagram.cpp) \
                  $$quote($$BASEDIR/src/PhotoLoader.cpp) \
@@ -37,22 +40,25 @@ device {
 
     CONFIG(release, debug|release) {
         INCLUDEPATH +=  $$quote(${QNX_TARGET}/usr/include/bb/device) \
-                 $$quote(/Users/stef/bb10-tmp-workspace/BB10Instagram/CBHelper/Simulator-Debug/headers) \
+                 $$quote(${workspace_loc}/BB10Instagram/CBHelper/Simulator-Debug/headers) \
+                 $$quote(${QNX_TARGET}/usr/include/bb/data) \
                  $$quote(${QNX_TARGET}/usr/include/qt4/QtCore)
 
         DEPENDPATH +=  $$quote(${QNX_TARGET}/usr/include/bb/device) \
-                 $$quote(/Users/stef/bb10-tmp-workspace/BB10Instagram/CBHelper/Simulator-Debug/headers) \
+                 $$quote(${workspace_loc}/BB10Instagram/CBHelper/Simulator-Debug/headers) \
+                 $$quote(${QNX_TARGET}/usr/include/bb/data) \
                  $$quote(${QNX_TARGET}/usr/include/qt4/QtCore)
 
         LIBS += -lCBHelper \
                 -lQtCore \
                 -lcamapi \
                 -lbbdevice \
-                -lcurl
+                -lcurl \
+                -lbbdata
 
-        LIBS +=  $$quote(-L/Users/stef/bb10-tmp-workspace/BB10Instagram/CBHelper/Device-Debug)
+        LIBS +=  $$quote(-L${workspace_loc}/BB10Instagram/CBHelper/Device-Debug)
 
-        PRE_TARGETDEPS +=  $$quote(/Users/stef/bb10-tmp-workspace/BB10Instagram/CBHelper/Device-Debug)
+        PRE_TARGETDEPS +=  $$quote(${workspace_loc}/BB10Instagram/CBHelper/Device-Debug)
 
         SOURCES +=  $$quote($$BASEDIR/src/BB10Instagram.cpp) \
                  $$quote($$BASEDIR/src/PhotoLoader.cpp) \
@@ -72,22 +78,25 @@ device {
 simulator {
     CONFIG(debug, debug|release) {
         INCLUDEPATH +=  $$quote(${QNX_TARGET}/usr/include/bb/device) \
-                 $$quote(/Users/stef/bb10-tmp-workspace/BB10Instagram/CBHelper/Simulator-Debug/headers) \
+                 $$quote(${workspace_loc}/BB10Instagram/CBHelper/Simulator-Debug/headers) \
+                 $$quote(${QNX_TARGET}/usr/include/bb/data) \
                  $$quote(${QNX_TARGET}/usr/include/qt4/QtCore)
 
         DEPENDPATH +=  $$quote(${QNX_TARGET}/usr/include/bb/device) \
-                 $$quote(/Users/stef/bb10-tmp-workspace/BB10Instagram/CBHelper/Simulator-Debug/headers) \
+                 $$quote(${workspace_loc}/BB10Instagram/CBHelper/Simulator-Debug/headers) \
+                 $$quote(${QNX_TARGET}/usr/include/bb/data) \
                  $$quote(${QNX_TARGET}/usr/include/qt4/QtCore)
 
         LIBS += -lCBHelper \
                 -lQtCore \
                 -lcamapi \
                 -lbbdevice \
-                -lcurl
+                -lcurl \
+                -lbbdata
 
-        LIBS +=  $$quote(-L/Users/stef/bb10-tmp-workspace/BB10Instagram/CBHelper/Simulator-Debug)
+        LIBS +=  $$quote(-L${workspace_loc}/BB10Instagram/CBHelper/Simulator-Debug)
 
-        PRE_TARGETDEPS +=  $$quote(/Users/stef/bb10-tmp-workspace/BB10Instagram/CBHelper/Simulator-Debug)
+        PRE_TARGETDEPS +=  $$quote(${workspace_loc}/BB10Instagram/CBHelper/Simulator-Debug)
 
         SOURCES +=  $$quote($$BASEDIR/src/BB10Instagram.cpp) \
                  $$quote($$BASEDIR/src/PhotoLoader.cpp) \

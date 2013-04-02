@@ -17,6 +17,8 @@
 #include "BB10Instagram.hpp"
 
 #include <bb/cascades/Application>
+#include <bb/cascades/ListView>
+#include <bb/data/DataSource>
 
 #include <QLocale>
 #include <QTranslator>
@@ -27,10 +29,19 @@
 
 using namespace bb::cascades;
 
+void myMessageOutput(QtMsgType type, const char* msg){
+                fprintf(stdout, "%s\n", msg);
+                fflush(stdout);
+}
+
 Q_DECL_EXPORT int main(int argc, char **argv)
 {
+	// register the qml type for the listview
+	qmlRegisterType<ListView>("bb.cascades", 1, 0, "ListView");
+	bb::data::DataSource::registerQmlTypes();
     // this is where the server is started etc
     Application app(argc, argv);
+    qInstallMsgHandler(myMessageOutput);
 
     // localization support
     QTranslator translator;
