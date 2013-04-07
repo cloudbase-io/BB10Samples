@@ -21,8 +21,10 @@
 #include <bb/system/CardDoneMessage>
 #include <bb/system/InvokeManager>
 #include <bb/system/InvokeTargetReply>
+#include <bb/cascades/pickers/FilePicker>
 
 using namespace bb::cascades;
+using namespace bb::cascades::pickers;
 using namespace Cloudbase;
 
 BB10Instagram::BB10Instagram(bb::cascades::Application *app)
@@ -106,34 +108,16 @@ void BB10Instagram::parseResponse(Cloudbase::CBHelperResponseInfo resp) {
 	}
 }
 
-Q_INVOKABLE void BB10Instagram::startPicture(QString title, QString tags) {
+void BB10Instagram::startPicture(QStringList list) {
 	// create a new photo object with a temporary asset file
 	// TODO: remove this once the Camera object is connected
-	newPhoto = new Photo(QString(title), QString(userObject->getUsername()), QString(tags), QString("asset:///images/test_photo.jpg"));
-	this->photoSaved("asset:///images/test_photo.jpg", 0);
-}
-
-Q_INVOKABLE void BB10Instagram::takePicture(){
-	bb::system::InvokeRequest cardRequest;
-	cardRequest.setTarget("sys.camera.card");
-	cardRequest.setAction("bb.action.CAPTURE");
-	bb::system::InvokeTargetReply* reply = invokeManager->invoke(cardRequest);
-	reply->setParent(this);
-}
-
-void BB10Instagram::childCardDone(const bb::system::CardDoneMessage &message)
-{
-	//Do something when the card closes
-    qDebug() << "Card closed" << message.data();
-}
-
-void BB10Instagram::photoSaved ( const QString &fileName, quint64 length ) {
-	// check the file exists
-	QFile file(fileName);
+	newPhoto = new Photo(QString(curTitle), QString(userObject->getUsername()), QString(curTags), QString(list[0]));
+	QFile file(list[0]);
 	if (file.exists()) {
 		Cloudbase::CBHelperAttachment att;
 		att.fileName = file.fileName().toStdString();
-		att.filePath = fileName.toStdString();
+		att.filePath = list[0].toStdString();
+
 		// TODO: here we might want to generate a thumbnail and attach it
 		// to the record so we can load it from the preview screen
 		std::vector<Cloudbase::CBHelperAttachment> atts;
@@ -148,6 +132,43 @@ void BB10Instagram::photoSaved ( const QString &fileName, quint64 length ) {
 	} else {
 		qDebug("file doesn't exist");
 	}
+}
+
+Q_INVOKABLE void BB10Instagram::takePicture(QString title, QString tags){
+	curTitle = title;
+	curTags = tags;
+
+	FilePicker* filePicker = new FilePicker();
+	filePicker->setType(FileType::Picture);
+	filePicker->setTitle("Select Picture");
+	filePicker->setMode(FilePickerMode::Picker);
+	filePicker->open();
+
+	// Connect the fileSelected() signal with the slot.
+	QObject::connect(filePicker,
+	    SIGNAL(fileSelected(const QStringList&)),
+	    this,
+	    SLOT(startPicture(const QStringList&)));
+
+	// Connect the canceled() signal with the slot.
+	//QObject::connect(filePicker,
+	//   SIGNAL(canceled()),
+	//    this,
+	//    SLOT(onCanceled()));
+
+	/*
+	bb::system::InvokeRequest cardRequest;
+	cardRequest.setTarget("sys.camera.card");
+	cardRequest.setAction("bb.action.CAPTURE");
+	bb::system::InvokeTargetReply* reply = invokeManager->invoke(cardRequest);
+	reply->setParent(this);
+	*/
+}
+
+void BB10Instagram::childCardDone(const bb::system::CardDoneMessage &message)
+{
+	//Do something when the card closes
+    qDebug() << "Card closed" << message.data();
 }
 
 void BB10Instagram::photoUploaded(Photo* photo) {
@@ -165,7 +186,7 @@ void BB10Instagram::receivedPhoto(Photo* photo) {
 	// TODO: create the list item and add it to the list view
 	// the pointer should be passed to the download responder
 	// which will add the picture as soon as it's downloaded
-
+	qDebug("received photo");
 	// initialize the responder which will add the photo to the listitem
 
 	//PhotoDownloadResponder *resp = new PhotoDownloadResponder(photo, new VisualNode());

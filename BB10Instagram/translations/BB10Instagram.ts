@@ -24,8 +24,8 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="95"/>
-        <location filename="../assets/main.qml" line="101"/>
+        <location filename="../assets/main.qml" line="97"/>
+        <location filename="../assets/main.qml" line="103"/>
         <source>Settings</source>
         <translation type="unfinished"></translation>
     </message>

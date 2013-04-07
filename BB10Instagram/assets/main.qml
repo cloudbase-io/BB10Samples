@@ -31,7 +31,7 @@ TabbedPane {
                     },
                     DataSource {
                         id: photoListData
-                        source: "photo.json"
+                        // source: "photo.json"
                         onDataLoaded: {
                             photoListModel.clear();
                             photoListModel.insertList(data);
@@ -83,7 +83,9 @@ TabbedPane {
                 Button {
                     text: "Start"
                     onClicked: {
-                        app.startPicture(photoTitleField.text, photoTagsField.text);
+                        //filebrowseDialog.filters = [ "*.jpg", "*.jpeg", "*.png", "*.gif" ]
+                        //filebrowseDialog.show();
+                        app.takePicture(photoTitleField.text, photoTagsField.text);
                     }
                 }
 

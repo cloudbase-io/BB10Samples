@@ -57,19 +57,18 @@ public:
      * Called when the save button is pressed in the settings tab
      */
     Q_INVOKABLE void saveSettings(QString newUsername);
-    /**
-     * Called once a picture is taken and is ready to be uploaded the with picture details
-     */
-    Q_INVOKABLE void startPicture(QString title, QString tags);
 
     //Added by lsale
-    Q_INVOKABLE void takePicture();
+    Q_INVOKABLE void takePicture(QString title, QString tags);
 
 private:
     // The user created by the settings tab when a username is sent to cloudbase.io
     User *userObject;
     // A Photo object to store a new picture being taken while it's uploaded to cloudbase.io
     Photo *newPhoto;
+
+    QString curTitle;
+    QString curTags;
 
     // The global cloudbase.io helper class object
     Cloudbase::CBHelper *helper;
@@ -80,11 +79,12 @@ private:
     bb::system::InvokeManager *invokeManager;
 
 public slots:
-
-	// SLOT for the Camera object
-	void photoSaved (const QString &fileName, quint64 length);
-
 	void childCardDone(const bb::system::CardDoneMessage &message);
+
+	/**
+	 * Called once a picture is taken and is ready to be uploaded the with picture details
+	 */
+	void startPicture(QStringList list);
 
 	// These are used by the uploader object to communicate with the main app when
 	// photos are being uplaoded
