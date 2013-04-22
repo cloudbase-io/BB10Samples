@@ -23,8 +23,8 @@ public:
 		out += "\"username\" : \"" + username_.toStdString() + "\", ";
 		out += "\"title\" : \"" + title_.toStdString() + "\", ";
 		out += "\"tags\" : \"" + tags_.toStdString() + "\", ";
-		out += "\"photo_time\" : ";
-		out += dateCreated_;
+		out += "\"photo_time\" : \"1938474\"";
+		//out += dateCreated_;
 		out += " } ]";
 
 		return out;
