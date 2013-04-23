@@ -18,9 +18,15 @@
 #define BB10Instagram_HPP_
 
 #include <QObject>
+#include <QtCore>
+#include <QFile>
+#include <QFileInfo>
+#include <QVariant>
 
 #include <bb/cascades/AbstractPane>
 #include <bb/cascades/ActivityIndicator>
+#include <bb/data/JsonDataAccess>
+#include <bb/data/DataSource>
 #include <bb/system/InvokeManager>
 
 #include "CBHelper.h"
@@ -77,7 +83,8 @@ private:
     PhotoLoader *loader;
 
     bb::system::InvokeManager *invokeManager;
-
+signals:
+	void photosLoaded(QString filePath);
 public slots:
 	void childCardDone(const bb::system::CardDoneMessage &message);
 
@@ -93,7 +100,7 @@ public slots:
 
 	// This SLOT is called by the PhotoLoader object every time it receives a new photo
 	// from cloudbase.io
-	void receivedPhoto(Photo* photo);
+	void receivedPhotos(QVariantList photos);
 
 	// These slots are called by the downloader every time a download completes or fails.
 	// the main UI is updated directly by the PhotoDownloader object using the VisualNode

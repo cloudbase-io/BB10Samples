@@ -73,7 +73,7 @@ BB10Instagram::BB10Instagram(bb::cascades::Application *app)
     // connect the SIGNAL from the PhotoLoader to the local method to add a photo
     // to the ListView
     qRegisterMetaType< Photo* >("Photo*");
-    QObject::connect(loader, SIGNAL(receivedPhoto(Photo*)), this, SLOT(receivedPhoto(Photo*)));
+    QObject::connect(loader, SIGNAL(receivedPhotos(QVariantList)), this, SLOT(receivedPhotos(QVariantList)));
 
     loader->loadPhotos();
 }
@@ -174,7 +174,7 @@ void BB10Instagram::childCardDone(const bb::system::CardDoneMessage &message)
 void BB10Instagram::photoUploaded(Photo* photo) {
 	// we finished uploading the photo. add it to the list view
 	// using the standard method
-	this->receivedPhoto(photo);
+	//this->receivedPhoto(photo);
 }
 
 void BB10Instagram::photoUploadFailed(Photo* photo, QString error) {
@@ -182,11 +182,36 @@ void BB10Instagram::photoUploadFailed(Photo* photo, QString error) {
 	// TODO: display nice error
 }
 
-void BB10Instagram::receivedPhoto(Photo* photo) {
+void BB10Instagram::receivedPhotos(QVariantList photos) {
 	// TODO: create the list item and add it to the list view
 	// the pointer should be passed to the download responder
 	// which will add the picture as soon as it's downloaded
 	qDebug("received photo");
+
+	QDir home = QDir::home();
+	QFile file(home.absoluteFilePath("photos.json"));
+
+	// Open the file that was created
+	if (file.open(QIODevice::ReadWrite)) {
+	    // Create a JsonDataAccess object and save the data to the file
+	    bb::data::JsonDataAccess jda;
+	    jda.save(photos, &file);
+	    file.flush();
+	}
+
+	qDebug() << "Photos loaded";
+
+	QObject *mainView = dynamic_cast<QObject *>(root);
+	qDebug() << "root";
+	QObject *dataSource = mainView->findChild<QObject *>(QString("photoListData"));
+	qDebug() << "datasource";
+	QFileInfo info(file);
+	qDebug() << info.absoluteFilePath();
+	if ( dataSource == NULL ) {
+		qDebug() << "null data source object";
+	}
+	//dataSource->setProperty("source", info.absoluteFilePath());
+
 	// initialize the responder which will add the photo to the listitem
 
 	//PhotoDownloadResponder *resp = new PhotoDownloadResponder(photo, new VisualNode());

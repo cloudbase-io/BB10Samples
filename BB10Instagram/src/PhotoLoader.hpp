@@ -15,6 +15,8 @@
  02111-1307, USA.
  */
 #include "CBHelper.h"
+#include <QVariant>
+#include <QDataStream>
 
 #include "model/Photo.hpp"
 
@@ -57,6 +59,7 @@ private:
 
 signals:
 	void receivedPhoto(Photo* photo);
+	void receivedPhotos(QVariantList photos);
 };
 
 #endif /* PHOTOLOADER_HPP_ */

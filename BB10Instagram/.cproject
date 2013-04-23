@@ -26,8 +26,8 @@
 							<tool id="com.qnx.qcc.tool.compiler.908828718" name="QCC Compiler" superClass="com.qnx.qcc.tool.compiler">
 								<option id="com.qnx.qcc.option.compiler.optlevel.816637668" name="Optimization Level" superClass="com.qnx.qcc.option.compiler.optlevel" value="com.qnx.qcc.option.compiler.optlevel.0" valueType="enumerated"/>
 								<option id="com.qnx.qcc.option.compiler.includePath.373380338" name="Include Directories (-I)" superClass="com.qnx.qcc.option.compiler.includePath" valueType="includePath">
-									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/bb/data"/>
 									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/qt4/QtCore"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/bb/data"/>
 									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/bb/device"/>
 									<listOptionValue builtIn="false" value="${CWD}/CBHelper/Simulator-Debug/headers"/>
 								</option>
@@ -82,8 +82,8 @@
 							<tool id="com.qnx.qcc.tool.compiler.1907390113" name="QCC Compiler" superClass="com.qnx.qcc.tool.compiler">
 								<option id="com.qnx.qcc.option.compiler.optlevel.1916002793" name="Optimization Level" superClass="com.qnx.qcc.option.compiler.optlevel" value="com.qnx.qcc.option.compiler.optlevel.0" valueType="enumerated"/>
 								<option id="com.qnx.qcc.option.compiler.includePath.576830718" name="Include Directories (-I)" superClass="com.qnx.qcc.option.compiler.includePath" valueType="includePath">
-									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/bb/data"/>
 									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/qt4/QtCore"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/bb/data"/>
 									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/bb/device"/>
 									<listOptionValue builtIn="false" value="${CWD}/CBHelper/Simulator-Debug/headers"/>
 								</option>
@@ -138,8 +138,8 @@
 							<tool id="com.qnx.qcc.tool.compiler.2052296111" name="QCC Compiler" superClass="com.qnx.qcc.tool.compiler">
 								<option id="com.qnx.qcc.option.compiler.optlevel.2123363723" name="Optimization Level" superClass="com.qnx.qcc.option.compiler.optlevel" value="com.qnx.qcc.option.compiler.optlevel.0" valueType="enumerated"/>
 								<option id="com.qnx.qcc.option.compiler.includePath.310409960" name="Include Directories (-I)" superClass="com.qnx.qcc.option.compiler.includePath" valueType="includePath">
-									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/bb/data"/>
 									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/qt4/QtCore"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/bb/data"/>
 									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/bb/device"/>
 									<listOptionValue builtIn="false" value="${CWD}/CBHelper/Simulator-Debug/headers"/>
 								</option>
@@ -194,8 +194,8 @@
 							<tool id="com.qnx.qcc.tool.compiler.313160416" name="QCC Compiler" superClass="com.qnx.qcc.tool.compiler">
 								<option id="com.qnx.qcc.option.compiler.optlevel.929096451" name="Optimization Level" superClass="com.qnx.qcc.option.compiler.optlevel" value="com.qnx.qcc.option.compiler.optlevel.0" valueType="enumerated"/>
 								<option id="com.qnx.qcc.option.compiler.includePath.1994625893" name="Include Directories (-I)" superClass="com.qnx.qcc.option.compiler.includePath" valueType="includePath">
-									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/bb/data"/>
 									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/qt4/QtCore"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/bb/data"/>
 									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/bb/device"/>
 									<listOptionValue builtIn="false" value="${CWD}/CBHelper/Simulator-Debug/headers"/>
 								</option>

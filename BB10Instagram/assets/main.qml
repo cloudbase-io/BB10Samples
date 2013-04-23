@@ -31,7 +31,7 @@ TabbedPane {
                     },
                     DataSource {
                         id: photoListData
-                        // source: "photo.json"
+                        source: "photos.json"
                         onDataLoaded: {
                             photoListModel.clear();
                             photoListModel.insertList(data);
@@ -141,5 +141,12 @@ TabbedPane {
         // enable layout to adapt to the device rotation
         // don't forget to enable screen rotation in bar-bescriptor.xml (Application->Orientation->Auto-orient)
         OrientationSupport.supportedDisplayOrientation = SupportedDisplayOrientation.All;
+
+        app.photosLoaded.connect(setSource);
+
+        function setSource(sourceUrl) {
+            console.log("set source");
+            photoListData.source = sourceUrl;
+        }
     }
 }

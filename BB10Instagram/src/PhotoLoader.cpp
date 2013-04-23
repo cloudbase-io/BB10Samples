@@ -43,6 +43,8 @@ void PhotoLoader::loadPhotos(QString user) {
 void PhotoLoader::parseResponse(Cloudbase::CBHelperResponseInfo resp) {
 	if ( resp.postSuccess ) {
 		if ( resp.parsedMessage->getType() == YAJLDom::Value::ARRAY ) {
+			QVariantList photos;
+
 			// loop over the array of objects from the photos collection
 			for (int i = 0; i < resp.parsedMessage->getNumChildValues(); i++) {
 				YAJLDom::Value* curPhoto = resp.parsedMessage->getValueByIndex(i);
@@ -72,9 +74,21 @@ void PhotoLoader::parseResponse(Cloudbase::CBHelperResponseInfo resp) {
 					}
 
 					// send the photo back to the application using the SIGNAL
-					emit receivedPhoto(newPhoto);
+					//emit receivedPhoto(newPhoto);
 				}
+
+				QVariantMap photoMap;
+
+				photoMap["title"] = title;
+				photoMap["username"] = username;
+				photoMap["tags"] = tags;
+				photoMap["time"] = photoTime;
+
+				//photos.append(photoMap);
+				photos << photoMap;
 			}
+
+			emit receivedPhotos(photos);
 		}
 	}
 }
