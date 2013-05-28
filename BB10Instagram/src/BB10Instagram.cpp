@@ -21,6 +21,8 @@
 #include <bb/system/CardDoneMessage>
 #include <bb/system/InvokeManager>
 #include <bb/data/DataSource>
+#include <bb/cascades/GroupDataModel>
+#include <bb/data/JsonDataAccess>
 #include <bb/cascades/ListView>
 #include <bb/system/InvokeTargetReply>
 #include <bb/cascades/pickers/FilePicker>
@@ -195,8 +197,8 @@ void BB10Instagram::receivedPhotos(QVariantList photos) {
 	qDebug("received photo");
 	//return;
 
-	QDir home = QDir::home();
-	QFile file(home.absoluteFilePath("photos.json"));
+	/*QDir home = QDir::home();
+	QFile file(QDir::home().absoluteFilePath("photos.json"));
 
 	// Open the file that was created
 	if (file.open(QIODevice::ReadWrite)) {
@@ -216,7 +218,14 @@ void BB10Instagram::receivedPhotos(QVariantList photos) {
 	qDebug() << info.absoluteFilePath();
 	if ( dataSource == NULL ) {
 		qDebug() << "null data source object";
-	}
+	}*/
+	//populate the listview directly from here - lsale 20120528
+	qDebug() << "populating ListView";
+	m_listView = bb::cascades::Application::instance()->findChild<ListView*>("photoListView");;
+	GroupDataModel *model = new GroupDataModel(QStringList() << "username");
+	model->insertList(photos);
+	m_listView->setDataModel(model);
+
 	//dataSource->setProperty("source", info.absoluteFilePath());
 
 	// initialize the responder which will add the photo to the listitem

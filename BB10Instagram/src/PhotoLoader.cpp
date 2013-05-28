@@ -41,7 +41,9 @@ void PhotoLoader::loadPhotos(QString user) {
 }
 
 void PhotoLoader::parseResponse(Cloudbase::CBHelperResponseInfo resp) {
+	qDebug()<< "Inside parseResponse";
 	if ( resp.postSuccess ) {
+		qDebug() << "parseResponse success";
 		if ( resp.parsedMessage->getType() == YAJLDom::Value::ARRAY ) {
 			QVariantList photos;
 
@@ -89,7 +91,7 @@ void PhotoLoader::parseResponse(Cloudbase::CBHelperResponseInfo resp) {
 				//photos.append(photoMap);
 				photos << photoMap;
 			}
-
+			qDebug() << "Emitting signal receivedPhotos";
 			emit receivedPhotos(photos);
 		}
 	}

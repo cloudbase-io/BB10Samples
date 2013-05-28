@@ -76,6 +76,7 @@ private:
 
     QString curTitle;
     QString curTags;
+    bb::cascades::ListView *m_listView;
 
     // The global cloudbase.io helper class object
     Cloudbase::CBHelper *helper;

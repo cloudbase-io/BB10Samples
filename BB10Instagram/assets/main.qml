@@ -4,6 +4,10 @@ import bb.data 1.0
 
 TabbedPane {
     showTabsOnActionBar: true
+    function setSource(sourceUrl) {
+        console.log("set source");
+        photoListData.source = sourceUrl;
+    }
     Tab {
         id: browseTab
 
@@ -12,6 +16,7 @@ TabbedPane {
             Page {
                 ListView {
                     id: photosListView
+                    objectName: "photoListView"
                     dataModel: photoListModel
                     listItemComponents: [
                         ListItemComponent {
@@ -31,7 +36,7 @@ TabbedPane {
                     },
                     DataSource {
                         id: photoListData
-                        source: "photos.json"
+                        source: "data/photos.json"
                         onDataLoaded: {
                             photoListModel.clear();
                             photoListModel.insertList(data);
@@ -143,10 +148,5 @@ TabbedPane {
         OrientationSupport.supportedDisplayOrientation = SupportedDisplayOrientation.All;
 
         app.photosLoaded.connect(setSource);
-
-        function setSource(sourceUrl) {
-            console.log("set source");
-            photoListData.source = sourceUrl;
-        }
     }
 }
