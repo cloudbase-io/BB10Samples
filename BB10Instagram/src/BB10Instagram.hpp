@@ -27,6 +27,7 @@
 #include <bb/cascades/ActivityIndicator>
 #include <bb/data/JsonDataAccess>
 #include <bb/data/DataSource>
+#include <bb/cascades/ListView>
 #include <bb/system/InvokeManager>
 
 #include "CBHelper.h"

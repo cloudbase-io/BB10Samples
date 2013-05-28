@@ -14,10 +14,14 @@
 
 # emulators
 172*
+169*
 
 # mac files
 .DS_Store
 
 # eclipse metadata
 .metadata
+
+# output
+arm*
 

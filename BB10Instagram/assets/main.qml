@@ -16,7 +16,7 @@ TabbedPane {
                     listItemComponents: [
                         ListItemComponent {
                             type: "item"
-                            MyListItemComponent{
+                            MyListItemComponent {
                                 //This is a custom component available in MyListItemComponent.qml
                             }
 

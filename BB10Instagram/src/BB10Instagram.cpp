@@ -20,6 +20,8 @@
 #include <bb/cascades/QmlDocument>
 #include <bb/system/CardDoneMessage>
 #include <bb/system/InvokeManager>
+#include <bb/data/DataSource>
+#include <bb/cascades/ListView>
 #include <bb/system/InvokeTargetReply>
 #include <bb/cascades/pickers/FilePicker>
 
@@ -30,6 +32,18 @@ using namespace Cloudbase;
 BB10Instagram::BB10Instagram(bb::cascades::Application *app)
 : QObject(app)
 {
+	// Create the QSettings object to store the username locally
+	QSettings settings("cloudbase.io", "com.coudbase.BB10Instagram");
+	QString settingsUsername = settings.value("username", "").toString();
+
+	// Create the User object in from the settings or set it to null if no username has
+    // been stored yet
+	if ( settingsUsername.compare("") == 0 ) {
+		userObject = NULL;
+	} else {
+		userObject = new User(settingsUsername);
+	}
+
     // create scene document from main.qml asset
     // set parent to created document to ensure it exists for the whole application lifetime
     QmlDocument *qml = QmlDocument::create("asset:///main.qml").parent(this);
@@ -42,25 +56,11 @@ BB10Instagram::BB10Instagram(bb::cascades::Application *app)
     // set created root object as a scene
     app->setScene(root);
 
-    // Create the QSettings object to store the username locally
-    QSettings settings("cloudbase.io", "com.coudbase.BB10Instagram");
-    QString settingsUsername = settings.value("username", "").toString();
-
-    // Create the User object in from the settings or set it to null if no username has
-    // been stored yet
-    if ( settingsUsername.compare("") == 0 ) {
-    	userObject = NULL;
-    } else {
-    	userObject = new User(settingsUsername);
-
-    	// TODO: We should set the username in the textfield here
-    }
-
     // Create and send an invocation for the card target
-    invokeManager = new bb::system::InvokeManager();
+    //invokeManager = new bb::system::InvokeManager();
 
-    connect(invokeManager, SIGNAL(childCardDone(const bb::system::CardDoneMessage&)),
-    		this, SLOT(childCardDone(const bb::system::CardDoneMessage&)));
+    //connect(invokeManager, SIGNAL(childCardDone(const bb::system::CardDoneMessage&)),
+    //		this, SLOT(childCardDone(const bb::system::CardDoneMessage&)));
 
     // initialize the CBHelper
     helper = new CBHelper("bb10-instagram", "c9c562fe54d2465db5e2cd16ed5d6156");
@@ -111,6 +111,12 @@ void BB10Instagram::parseResponse(Cloudbase::CBHelperResponseInfo resp) {
 void BB10Instagram::startPicture(QStringList list) {
 	// create a new photo object with a temporary asset file
 	// TODO: remove this once the Camera object is connected
+	qDebug("start");
+	qDebug() << curTitle;
+	qDebug() << userObject->getUsername();
+	qDebug() << curTags;
+	qDebug() << list[0];
+	//qDebug("start photo with: %s, %s, %s, %s", curTitle, userObject->getUsername(), curTags, list[0]);
 	newPhoto = new Photo(QString(curTitle), QString(userObject->getUsername()), QString(curTags), QString(list[0]));
 	QFile file(list[0]);
 	if (file.exists()) {
@@ -187,6 +193,7 @@ void BB10Instagram::receivedPhotos(QVariantList photos) {
 	// the pointer should be passed to the download responder
 	// which will add the picture as soon as it's downloaded
 	qDebug("received photo");
+	//return;
 
 	QDir home = QDir::home();
 	QFile file(home.absoluteFilePath("photos.json"));

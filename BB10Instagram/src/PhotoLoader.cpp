@@ -47,6 +47,7 @@ void PhotoLoader::parseResponse(Cloudbase::CBHelperResponseInfo resp) {
 
 			// loop over the array of objects from the photos collection
 			for (int i = 0; i < resp.parsedMessage->getNumChildValues(); i++) {
+				qDebug() << "loop";
 				YAJLDom::Value* curPhoto = resp.parsedMessage->getValueByIndex(i);
 
 				// get all the basic data for the current object
@@ -78,7 +79,8 @@ void PhotoLoader::parseResponse(Cloudbase::CBHelperResponseInfo resp) {
 				}
 
 				QVariantMap photoMap;
-
+				qDebug() << "loaded photo: ";
+				qDebug() << title;
 				photoMap["title"] = title;
 				photoMap["username"] = username;
 				photoMap["tags"] = tags;
