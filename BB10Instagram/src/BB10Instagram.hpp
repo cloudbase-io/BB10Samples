@@ -85,6 +85,9 @@ private:
     PhotoLoader *loader;
 
     bb::system::InvokeManager *invokeManager;
+
+    // tells us whether the helper class has registered with the cloudbase.io servers yet
+    bool helperClassRegistered;
 signals:
 	void photosLoaded(QString filePath);
 public slots:
@@ -104,12 +107,9 @@ public slots:
 	// from cloudbase.io
 	void receivedPhotos(QVariantList photos);
 
-	// These slots are called by the downloader every time a download completes or fails.
-	// the main UI is updated directly by the PhotoDownloader object using the VisualNode
-	// it receives in its constructor - These are used only as debug methods here to monitor
-	// the activity of the downloader.
-	void photoDownloaded(Photo* photo);
-	void photoDownloadFailed(Photo* photo, QString error);
+	// this is used to check when the helper class is ready to receive data. We only run this after
+	// the first request, which is the register device
+	void helperInit(int httpStatus);
 };
 
 #endif /* ApplicationUI_HPP_ */

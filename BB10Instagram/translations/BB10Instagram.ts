@@ -4,28 +4,28 @@
 <context>
     <name>main</name>
     <message>
-        <location filename="../assets/main.qml" line="10"/>
+        <location filename="../assets/main.qml" line="14"/>
         <source>Browse</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="50"/>
+        <location filename="../assets/main.qml" line="55"/>
         <source>New Photo</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="58"/>
+        <location filename="../assets/main.qml" line="63"/>
         <source>Raise</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="68"/>
+        <location filename="../assets/main.qml" line="73"/>
         <source>Take photo</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="97"/>
-        <location filename="../assets/main.qml" line="103"/>
+        <location filename="../assets/main.qml" line="102"/>
+        <location filename="../assets/main.qml" line="108"/>
         <source>Settings</source>
         <translation type="unfinished"></translation>
     </message>

@@ -65,9 +65,11 @@ BB10Instagram::BB10Instagram(bb::cascades::Application *app)
     //		this, SLOT(childCardDone(const bb::system::CardDoneMessage&)));
 
     // initialize the CBHelper
+    helperClassRegistered = false;
     helper = new CBHelper("bb10-instagram", "c9c562fe54d2465db5e2cd16ed5d6156");
     helper->debugMode = true;
     helper->setPassword("cbc06180efdc9db4ac573c99c224405f");
+
 
     // initialize the global PhotoLoader
     loader = new PhotoLoader(helper);
@@ -76,8 +78,16 @@ BB10Instagram::BB10Instagram(bb::cascades::Application *app)
     // to the ListView
     qRegisterMetaType< Photo* >("Photo*");
     QObject::connect(loader, SIGNAL(receivedPhotos(QVariantList)), this, SLOT(receivedPhotos(QVariantList)));
+    QObject::connect(helper, SIGNAL(requestCompleted(int)), this, SLOT(helperInit(int)));
 
-    loader->loadPhotos();
+    //loader->loadPhotos();
+}
+
+void BB10Instagram::helperInit(int httpStatus) {
+	if ( httpStatus == 0 && !helperClassRegistered ) {
+		loader->loadPhotos();
+		helperClassRegistered = true;
+	}
 }
 
 Q_INVOKABLE void BB10Instagram::saveSettings(QString newUsername) {
@@ -142,7 +152,7 @@ void BB10Instagram::startPicture(QStringList list) {
 	}
 }
 
-Q_INVOKABLE void BB10Instagram::takePicture(QString title, QString tags){
+Q_INVOKABLE void BB10Instagram::takePicture(QString title, QString tags) {
 	curTitle = title;
 	curTags = tags;
 
@@ -186,7 +196,7 @@ void BB10Instagram::photoUploaded(Photo* photo) {
 }
 
 void BB10Instagram::photoUploadFailed(Photo* photo, QString error) {
-	qDebug("Error while uploading photo %s", error.toStdString().c_str());
+	//qDebug("Error while uploading photo %s", error.toStdString().c_str());
 	// TODO: display nice error
 }
 
@@ -234,13 +244,4 @@ void BB10Instagram::receivedPhotos(QVariantList photos) {
 	//QObject::connect(resp, SIGNAL(photoDownloaded(Photo)), this, SLOT(photoDownloaded(Photo)));
 	//QObject::connect(resp, SIGNAL(photoDownloadFailed(Photo, QString)), this, SLOT(photoDownloadFailed(Photo, QString)));
 	//helper->downloadFile(photo.getThumbnailFileId().toStdString(), resp);
-}
-
-void BB10Instagram::photoDownloaded(Photo* photo) {
-	qDebug("completed download of %s for %s", photo->getThumbnailFileId().toStdString().c_str(), photo->getUsername().toStdString().c_str());
-}
-
-void BB10Instagram::photoDownloadFailed(Photo* photo, QString error) {
-	qDebug("Error while downloading photo %s", error.toStdString().c_str());
-	// TODO: display nice error or retry
 }

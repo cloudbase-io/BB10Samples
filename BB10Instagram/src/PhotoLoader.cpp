@@ -41,15 +41,18 @@ void PhotoLoader::loadPhotos(QString user) {
 }
 
 void PhotoLoader::parseResponse(Cloudbase::CBHelperResponseInfo resp) {
-	qDebug()<< "Inside parseResponse";
+
+	if ( resp.function == "download" ) {
+		qDebug() << "received file";
+		return;
+	}
+
+	qDebug() << "error message: " << resp.errorMessage.c_str();
 	if ( resp.postSuccess ) {
-		qDebug() << "parseResponse success";
 		if ( resp.parsedMessage->getType() == YAJLDom::Value::ARRAY ) {
 			QVariantList photos;
-
 			// loop over the array of objects from the photos collection
 			for (int i = 0; i < resp.parsedMessage->getNumChildValues(); i++) {
-				qDebug() << "loop";
 				YAJLDom::Value* curPhoto = resp.parsedMessage->getValueByIndex(i);
 
 				// get all the basic data for the current object
@@ -57,6 +60,7 @@ void PhotoLoader::parseResponse(Cloudbase::CBHelperResponseInfo resp) {
 				QString username = QString::fromStdString(curPhoto->getValueForKey("username")->toString());
 				QString tags = QString::fromStdString(curPhoto->getValueForKey("tags")->toString());
 				QString photoTime = QString::fromStdString(curPhoto->getValueForKey("photo_time")->toString());
+				QString filePath = "";
 
 				Photo* newPhoto = new Photo(title, username, tags, "");
 
@@ -67,23 +71,29 @@ void PhotoLoader::parseResponse(Cloudbase::CBHelperResponseInfo resp) {
 					// thumbnails as well as the full size picture. We assume the thumbnail images
 					// contain "thumb" in the file name
 					for (int y = 0; y < photoFiles->getNumChildValues(); y++) {
+						qDebug() << "loop over files";
 						YAJLDom::Value* curFile = photoFiles->getValueByIndex(y);
 
-						if (std::string::npos == curFile->getValueForKey("file_name")->toString().find("thumb")) {
-							newPhoto->setFileId(QString::fromStdString(curFile->getValueForKey("file_id")->toString()));
-						} else {
-							newPhoto->setThumbnailFileId(QString::fromStdString(curFile->getValueForKey("file_id")->toString()));
-						}
+						qDebug() << "starting download";
+						const QDir home = QDir::home();
+						QString fileIdString = QString::fromStdString(curFile->getValueForKey("file_id")->toString());
+						filePath = home.absoluteFilePath(fileIdString);
+						newPhoto->setThumbnailFileId(filePath);
+						helper->downloadFile(curFile->getValueForKey("file_id")->toString(), this);
+
+						qDebug() << "file path: " << filePath;
 					}
 
 					// send the photo back to the application using the SIGNAL
 					//emit receivedPhoto(newPhoto);
+				} else {
+					qDebug() << "no files";
 				}
 
 				QVariantMap photoMap;
-				qDebug() << "loaded photo: ";
-				qDebug() << title;
+				qDebug() << "loaded photo: " << title;
 				photoMap["title"] = title;
+				photoMap["imageSource"] = filePath;
 				photoMap["username"] = username;
 				photoMap["tags"] = tags;
 				photoMap["time"] = photoTime;
@@ -95,4 +105,5 @@ void PhotoLoader::parseResponse(Cloudbase::CBHelperResponseInfo resp) {
 			emit receivedPhotos(photos);
 		}
 	}
+
 }
