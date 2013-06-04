@@ -52,7 +52,6 @@ BB10Instagram::BB10Instagram(bb::cascades::Application *app)
 
     // Send this object to the QML so its Q_INVOKABLE methods can be called
     qml->setContextProperty("app", this);
-
     // create root object for the UI
     root = qml->createRootObject<AbstractPane>();
     // set created root object as a scene

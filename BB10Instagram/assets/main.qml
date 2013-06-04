@@ -10,12 +10,13 @@ TabbedPane {
     }
     Tab {
         id: browseTab
-
+        property bool emitLoaded
         title: qsTr("Browse")
         NavigationPane {
             Page {
                 ListView {
                     id: photosListView
+                    property bool photoLoaded: browseTab.emitLoaded
                     objectName: "photoListView"
                     dataModel: photoListModel
                     listItemComponents: [
