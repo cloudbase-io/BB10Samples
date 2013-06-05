@@ -91,8 +91,6 @@ private:
 signals:
 	void photosLoaded(QString filePath);
 public slots:
-	void childCardDone(const bb::system::CardDoneMessage &message);
-
 	/**
 	 * Called once a picture is taken and is ready to be uploaded the with picture details
 	 */
@@ -106,10 +104,6 @@ public slots:
 	// This SLOT is called by the PhotoLoader object every time it receives a new photo
 	// from cloudbase.io
 	void receivedPhotos(QVariantList photos);
-
-	// this is used to check when the helper class is ready to receive data. We only run this after
-	// the first request, which is the register device
-	void helperInit(int httpStatus);
 };
 
 #endif /* ApplicationUI_HPP_ */

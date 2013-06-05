@@ -9,23 +9,23 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="55"/>
+        <location filename="../assets/main.qml" line="56"/>
         <source>New Photo</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="63"/>
+        <location filename="../assets/main.qml" line="64"/>
         <source>Raise</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="73"/>
+        <location filename="../assets/main.qml" line="74"/>
         <source>Take photo</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="102"/>
-        <location filename="../assets/main.qml" line="108"/>
+        <location filename="../assets/main.qml" line="103"/>
+        <location filename="../assets/main.qml" line="109"/>
         <source>Settings</source>
         <translation type="unfinished"></translation>
     </message>

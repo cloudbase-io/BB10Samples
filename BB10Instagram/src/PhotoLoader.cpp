@@ -44,6 +44,7 @@ void PhotoLoader::parseResponse(Cloudbase::CBHelperResponseInfo resp) {
 
 	if ( resp.function == "download" ) {
 		qDebug() << "received file";
+		qDebug() << QString::fromStdString(resp.downloadedFileName);
 		return;
 	}
 
@@ -75,9 +76,9 @@ void PhotoLoader::parseResponse(Cloudbase::CBHelperResponseInfo resp) {
 						YAJLDom::Value* curFile = photoFiles->getValueByIndex(y);
 
 						qDebug() << "starting download";
-						const QDir home = QDir::currentPath()+"shared/";
+						const QDir home = QDir::currentPath()+"/data/";
 						QString fileIdString = QString::fromStdString(curFile->getValueForKey("file_id")->toString());
-						filePath = home.absoluteFilePath(fileIdString+".jpg");
+						filePath = home.absoluteFilePath(fileIdString);
 						newPhoto->setThumbnailFileId(filePath);
 						helper->downloadFile(curFile->getValueForKey("file_id")->toString(), this);
 

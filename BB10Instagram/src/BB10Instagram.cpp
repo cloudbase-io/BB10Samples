@@ -26,7 +26,9 @@
 #include <bb/cascades/ListView>
 #include <bb/system/InvokeTargetReply>
 #include <bb/cascades/pickers/FilePicker>
+#include <bb/system/SystemDialog>
 
+using namespace bb::system;
 using namespace bb::cascades;
 using namespace bb::cascades::pickers;
 using namespace Cloudbase;
@@ -57,18 +59,11 @@ BB10Instagram::BB10Instagram(bb::cascades::Application *app)
     // set created root object as a scene
     app->setScene(root);
 
-    // Create and send an invocation for the card target
-    //invokeManager = new bb::system::InvokeManager();
-
-    //connect(invokeManager, SIGNAL(childCardDone(const bb::system::CardDoneMessage&)),
-    //		this, SLOT(childCardDone(const bb::system::CardDoneMessage&)));
-
     // initialize the CBHelper
     helperClassRegistered = false;
     helper = new CBHelper("bb10-instagram", "c9c562fe54d2465db5e2cd16ed5d6156");
     helper->debugMode = true;
     helper->setPassword("cbc06180efdc9db4ac573c99c224405f");
-
 
     // initialize the global PhotoLoader
     loader = new PhotoLoader(helper);
@@ -77,23 +72,14 @@ BB10Instagram::BB10Instagram(bb::cascades::Application *app)
     // to the ListView
     qRegisterMetaType< Photo* >("Photo*");
     QObject::connect(loader, SIGNAL(receivedPhotos(QVariantList)), this, SLOT(receivedPhotos(QVariantList)));
-    QObject::connect(helper, SIGNAL(requestCompleted(int)), this, SLOT(helperInit(int)));
 
-    kloader->loadPhotos();
-}
-
-void BB10Instagram::helperInit(int httpStatus) {
-	if ( httpStatus == 0 && !helperClassRegistered ) {
-		//loader->loadPhotos();
-		helperClassRegistered = true;
-	}
+    loader->loadPhotos();
 }
 
 Q_INVOKABLE void BB10Instagram::saveSettings(QString newUsername) {
 	qDebug("checking user... %s", newUsername.toStdString().c_str());
 	// if it's a new user
 	if ( userObject == NULL || userObject->getUsername().compare(newUsername) != 0 ) {
-		// TODO: we should activate the activity indicator here
 
 		// save the user in the settings
 		QSettings settings("cloudbase.io", "com.coudbase.BB10Instagram");
@@ -120,14 +106,15 @@ void BB10Instagram::parseResponse(Cloudbase::CBHelperResponseInfo resp) {
 }
 
 void BB10Instagram::startPicture(QStringList list) {
-	// create a new photo object with a temporary asset file
-	// TODO: remove this once the Camera object is connected
-	qDebug("start");
-	qDebug() << curTitle;
-	qDebug() << userObject->getUsername();
-	qDebug() << curTags;
-	qDebug() << list[0];
-	//qDebug("start photo with: %s, %s, %s, %s", curTitle, userObject->getUsername(), curTags, list[0]);
+	// check that the user is set
+	if ( userObject == NULL || userObject->getUsername() == NULL ) {
+		SystemDialog *dialog = new SystemDialog("OK");
+		dialog->setTitle("Missing username");
+		dialog->setBody("Setup a user for the application in the settings tab");
+		dialog->show();
+		return;
+	}
+
 	newPhoto = new Photo(QString(curTitle), QString(userObject->getUsername()), QString(curTags), QString(list[0]));
 	QFile file(list[0]);
 	if (file.exists()) {
@@ -166,81 +153,24 @@ Q_INVOKABLE void BB10Instagram::takePicture(QString title, QString tags) {
 	    SIGNAL(fileSelected(const QStringList&)),
 	    this,
 	    SLOT(startPicture(const QStringList&)));
-
-	// Connect the canceled() signal with the slot.
-	//QObject::connect(filePicker,
-	//   SIGNAL(canceled()),
-	//    this,
-	//    SLOT(onCanceled()));
-
-	/*
-	bb::system::InvokeRequest cardRequest;
-	cardRequest.setTarget("sys.camera.card");
-	cardRequest.setAction("bb.action.CAPTURE");
-	bb::system::InvokeTargetReply* reply = invokeManager->invoke(cardRequest);
-	reply->setParent(this);
-	*/
-}
-
-void BB10Instagram::childCardDone(const bb::system::CardDoneMessage &message)
-{
-	//Do something when the card closes
-    qDebug() << "Card closed" << message.data();
 }
 
 void BB10Instagram::photoUploaded(Photo* photo) {
 	// we finished uploading the photo. add it to the list view
 	// using the standard method
-	//this->receivedPhoto(photo);
 }
 
 void BB10Instagram::photoUploadFailed(Photo* photo, QString error) {
 	//qDebug("Error while uploading photo %s", error.toStdString().c_str());
-	// TODO: display nice error
 }
 
 void BB10Instagram::receivedPhotos(QVariantList photos) {
 	// TODO: create the list item and add it to the list view
 	// the pointer should be passed to the download responder
 	// which will add the picture as soon as it's downloaded
-	qDebug("received photo");
-	//return;
-
-	/*QDir home = QDir::home();
-	QFile file(QDir::home().absoluteFilePath("photos.json"));
-
-	// Open the file that was created
-	if (file.open(QIODevice::ReadWrite)) {
-	    // Create a JsonDataAccess object and save the data to the file
-	    bb::data::JsonDataAccess jda;
-	    jda.save(photos, &file);
-	    file.flush();
-	}
-
-	qDebug() << "Photos loaded";
-
-	QObject *mainView = dynamic_cast<QObject *>(root);
-	qDebug() << "root";
-	QObject *dataSource = mainView->findChild<QObject *>(QString("photoListData"));
-	qDebug() << "datasource";
-	QFileInfo info(file);
-	qDebug() << info.absoluteFilePath();
-	if ( dataSource == NULL ) {
-		qDebug() << "null data source object";
-	}*/
 	//populate the listview directly from here - lsale 20120528
-	qDebug() << "populating ListView";
-	m_listView = bb::cascades::Application::instance()->findChild<ListView*>("photoListView");;
+	m_listView = bb::cascades::Application::instance()->findChild<ListView*>("photoListView");
 	GroupDataModel *model = new GroupDataModel(QStringList() << "username");
 	model->insertList(photos);
 	m_listView->setDataModel(model);
-
-	//dataSource->setProperty("source", info.absoluteFilePath());
-
-	// initialize the responder which will add the photo to the listitem
-
-	//PhotoDownloadResponder *resp = new PhotoDownloadResponder(photo, new VisualNode());
-	//QObject::connect(resp, SIGNAL(photoDownloaded(Photo)), this, SLOT(photoDownloaded(Photo)));
-	//QObject::connect(resp, SIGNAL(photoDownloadFailed(Photo, QString)), this, SLOT(photoDownloadFailed(Photo, QString)));
-	//helper->downloadFile(photo.getThumbnailFileId().toStdString(), resp);
 }
