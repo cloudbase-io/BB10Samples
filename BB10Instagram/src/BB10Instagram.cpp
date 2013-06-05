@@ -79,12 +79,12 @@ BB10Instagram::BB10Instagram(bb::cascades::Application *app)
     QObject::connect(loader, SIGNAL(receivedPhotos(QVariantList)), this, SLOT(receivedPhotos(QVariantList)));
     QObject::connect(helper, SIGNAL(requestCompleted(int)), this, SLOT(helperInit(int)));
 
-    //loader->loadPhotos();
+    kloader->loadPhotos();
 }
 
 void BB10Instagram::helperInit(int httpStatus) {
 	if ( httpStatus == 0 && !helperClassRegistered ) {
-		loader->loadPhotos();
+		//loader->loadPhotos();
 		helperClassRegistered = true;
 	}
 }
