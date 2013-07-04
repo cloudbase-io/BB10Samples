@@ -26,6 +26,8 @@
 // include JS Debugger / CS Profiler enabler
 // this feature is enabled by default in the debug build only
 #include <Qt/qdeclarativedebug.h>
+#include <ImageFolderWatcher.hpp>
+
 
 using namespace bb::cascades;
 
@@ -38,6 +40,7 @@ Q_DECL_EXPORT int main(int argc, char **argv)
 {
 	// register the qml type for the listview
 	qmlRegisterType<ListView>("bb.cascades", 1, 0, "ListView");
+	qmlRegisterType<ImageFolderWatcher>("imagewatcher",1,0,"ImageFolderWatcher");
 	bb::data::DataSource::registerQmlTypes();
     // this is where the server is started etc
     Application app(argc, argv);

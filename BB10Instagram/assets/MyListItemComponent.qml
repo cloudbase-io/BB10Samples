@@ -15,6 +15,7 @@
  * 02111-1307, USA.
  */
 import bb.cascades 1.0
+import imagewatcher 1.0
 
 Container {
     id: mainContainer
@@ -31,22 +32,14 @@ Container {
         id: myImage
         imageSource: "asset:///images/picture1br.png"
         horizontalAlignment: HorizontalAlignment.Center
-        enabled: mainContainer.ListItem.view.photoLoaded
-        onCreationCompleted:{
-            console.log("Created element with photo: "+imageSource);
-        }
+        preferredHeight: 300;
+        scalingMethod: ScalingMethod.AspectFit
     }
     Label {
         id: tags
         text: "TAGS: " + ListItemData.tags
         textStyle.fontSize: FontSize.XSmall 
         horizontalAlignment: HorizontalAlignment.Center
-        onTouch: {
-            if(event.isDown()){
-                myImage.imageSource = ListItemData.imageSource
-                console.log("Image is"+myImage.imageSource)
-            }
-        }
     }
     Label {
         id: user
@@ -57,5 +50,14 @@ Container {
     Divider {
 
     }
-
+    attachedObjects: [
+        ImageFolderWatcher {
+            id:imageFolderWatcher
+            imageFilename: ListItemData.imageSource+'.jpg'
+            onImageCreated: {
+                myImage.setImageSource(fullImageFilename);
+            }
+        }
+    
+    ]
 }

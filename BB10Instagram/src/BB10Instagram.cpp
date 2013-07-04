@@ -28,6 +28,7 @@
 #include <bb/cascades/pickers/FilePicker>
 #include <bb/system/SystemDialog>
 
+
 using namespace bb::system;
 using namespace bb::cascades;
 using namespace bb::cascades::pickers;
@@ -48,12 +49,14 @@ BB10Instagram::BB10Instagram(bb::cascades::Application *app)
 		userObject = new User(settingsUsername);
 	}
 
+
     // create scene document from main.qml asset
     // set parent to created document to ensure it exists for the whole application lifetime
     QmlDocument *qml = QmlDocument::create("asset:///main.qml").parent(this);
 
     // Send this object to the QML so its Q_INVOKABLE methods can be called
     qml->setContextProperty("app", this);
+
     // create root object for the UI
     root = qml->createRootObject<AbstractPane>();
     // set created root object as a scene

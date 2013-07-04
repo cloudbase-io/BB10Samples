@@ -9,7 +9,7 @@ TabbedPane {
         photoListData.source = sourceUrl;
     }
     Tab {
-        id: browseTab
+        id: browseTab 
         property bool emitLoaded
         title: qsTr("Browse")
         NavigationPane {

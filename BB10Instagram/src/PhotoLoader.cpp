@@ -44,6 +44,9 @@ void PhotoLoader::parseResponse(Cloudbase::CBHelperResponseInfo resp) {
 
 	if ( resp.function == "download" ) {
 		qDebug() << "received file";
+		QString oldName = QString::fromStdString(resp.downloadedFileName);
+		QString newName = QString::fromStdString(resp.downloadedFileName+".jpg");
+		QFile::rename(oldName, newName);
 		qDebug() << QString::fromStdString(resp.downloadedFileName);
 		return;
 	}
@@ -94,7 +97,7 @@ void PhotoLoader::parseResponse(Cloudbase::CBHelperResponseInfo resp) {
 				QVariantMap photoMap;
 				qDebug() << "loaded photo: " << title;
 				photoMap["title"] = title;
-				photoMap["imageSource"] = "file://"+filePath;
+				photoMap["imageSource"] = filePath;
 				photoMap["username"] = username;
 				photoMap["tags"] = tags;
 				photoMap["time"] = photoTime;
