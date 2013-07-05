@@ -21,6 +21,8 @@
 
 # eclipse metadata
 .metadata
+blackberry-3*
+.settings
 
 # output
 arm*

@@ -25,12 +25,14 @@ device {
         PRE_TARGETDEPS +=  $$quote(${CWD}/CBHelper/Device-Debug)
 
         SOURCES +=  $$quote($$BASEDIR/src/BB10Instagram.cpp) \
+                 $$quote($$BASEDIR/src/ImageFolderWatcher.cpp) \
                  $$quote($$BASEDIR/src/PhotoLoader.cpp) \
                  $$quote($$BASEDIR/src/main.cpp) \
                  $$quote($$BASEDIR/src/responder/PhotoDownloadResponder.cpp) \
                  $$quote($$BASEDIR/src/responder/PhotoUploadResponder.cpp)
 
         HEADERS +=  $$quote($$BASEDIR/src/BB10Instagram.hpp) \
+                 $$quote($$BASEDIR/src/ImageFolderWatcher.hpp) \
                  $$quote($$BASEDIR/src/PhotoLoader.hpp) \
                  $$quote($$BASEDIR/src/model/Photo.hpp) \
                  $$quote($$BASEDIR/src/model/User.hpp) \
@@ -61,12 +63,14 @@ device {
         PRE_TARGETDEPS +=  $$quote(${CWD}/CBHelper/Device-Debug)
 
         SOURCES +=  $$quote($$BASEDIR/src/BB10Instagram.cpp) \
+                 $$quote($$BASEDIR/src/ImageFolderWatcher.cpp) \
                  $$quote($$BASEDIR/src/PhotoLoader.cpp) \
                  $$quote($$BASEDIR/src/main.cpp) \
                  $$quote($$BASEDIR/src/responder/PhotoDownloadResponder.cpp) \
                  $$quote($$BASEDIR/src/responder/PhotoUploadResponder.cpp)
 
         HEADERS +=  $$quote($$BASEDIR/src/BB10Instagram.hpp) \
+                 $$quote($$BASEDIR/src/ImageFolderWatcher.hpp) \
                  $$quote($$BASEDIR/src/PhotoLoader.hpp) \
                  $$quote($$BASEDIR/src/model/Photo.hpp) \
                  $$quote($$BASEDIR/src/model/User.hpp) \
@@ -99,12 +103,14 @@ simulator {
         PRE_TARGETDEPS +=  $$quote(${CWD}/CBHelper/Simulator-Debug)
 
         SOURCES +=  $$quote($$BASEDIR/src/BB10Instagram.cpp) \
+                 $$quote($$BASEDIR/src/ImageFolderWatcher.cpp) \
                  $$quote($$BASEDIR/src/PhotoLoader.cpp) \
                  $$quote($$BASEDIR/src/main.cpp) \
                  $$quote($$BASEDIR/src/responder/PhotoDownloadResponder.cpp) \
                  $$quote($$BASEDIR/src/responder/PhotoUploadResponder.cpp)
 
         HEADERS +=  $$quote($$BASEDIR/src/BB10Instagram.hpp) \
+                 $$quote($$BASEDIR/src/ImageFolderWatcher.hpp) \
                  $$quote($$BASEDIR/src/PhotoLoader.hpp) \
                  $$quote($$BASEDIR/src/model/Photo.hpp) \
                  $$quote($$BASEDIR/src/model/User.hpp) \

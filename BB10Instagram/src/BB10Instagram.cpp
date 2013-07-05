@@ -63,10 +63,11 @@ BB10Instagram::BB10Instagram(bb::cascades::Application *app)
     app->setScene(root);
 
     // initialize the CBHelper
+    // TODO: Place the unique keys for your application here
     helperClassRegistered = false;
-    helper = new CBHelper("bb10-instagram", "c9c562fe54d2465db5e2cd16ed5d6156");
+    helper = new CBHelper("your-app-code", "app-unique-code");
     helper->debugMode = true;
-    helper->setPassword("cbc06180efdc9db4ac573c99c224405f");
+    helper->setPassword("md5 of app password");
 
     // initialize the global PhotoLoader
     loader = new PhotoLoader(helper);
